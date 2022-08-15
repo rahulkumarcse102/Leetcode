@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canConstruct(string s, int k) {
+        unordered_map<char,int> mp;
+        for(auto x: s)
+            mp[x]++;
+        int eve=0,od=0;
+        for(auto a: mp){
+            if((a.second)%2==0)eve++;
+            else od++;
+        }
+        if(k>s.length() || od>k)
+            return false;
+        
+        return true;
+    }
+};
