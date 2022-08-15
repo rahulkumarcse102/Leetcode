@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solve(int i, int j, vector<vector<int>>& dungeon, vector<vector<int>>& dp){
+        int m = dungeon.size();
+        int n = dungeon[0].size();
+        if(i==m or j==n)
+            return INT_MIN;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        int right = solve(i+1,j,dungeon,dp);
+        int down = solve(i,j+1,dungeon,dp);
+        dp[i][j] = max(right,down);
+        if(i==m-1 and j==n-1)
+            return dp[i][j] = min(0,dungeon[i][j]);
+        
+        return dp[i][j] = min(0,dp[i][j]+dungeon[i][j]);
+    }
+    
+    int calculateMinimumHP(vector<vector<int>>& dungeon) {
+        int m = dungeon.size();
+        int n = dungeon[0].size();
+        vector<vector<int>> dp(m, vector<int> (n,-1));
+        int ans = solve(0,0,dungeon,dp);
+        return abs(ans)+1;
+    }
+};
