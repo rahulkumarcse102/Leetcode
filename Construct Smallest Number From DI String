@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string smallestNumber(string p) {
+        int n = p.length()+1;
+        string s="";
+        for(int i=1;i<=n;i++){
+            s+=(i+'0');
+        }
+        do{
+            bool flag = true;
+            for(int i=1;i<n;i++){
+                if((p[i-1]=='I' && s[i-1]>s[i]) || (p[i-1]=='D' && s[i-1]<s[i]))
+                   flag = false;
+            }
+           if(flag)return s;
+        }while(next_permutation(s.begin(),s.end()));
+        return "";
+    }
+};
