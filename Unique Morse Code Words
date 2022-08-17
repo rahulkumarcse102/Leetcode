@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        vector<string> v = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        if(words.size()==0)return 0;
+        set<string> s;
+        for(auto w : words){
+            string temp="";
+            for(auto ch : w){
+                temp += v[(int)ch-97];
+            }
+            // cout<<temp<<" ";
+            s.insert(temp);
+        }
+        return s.size();
+    }
+};
