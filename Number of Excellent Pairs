@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long countExcellentPairs(vector<int>& nums, int k) {
+        sort(begin(nums),end(nums));
+        nums.resize(unique(nums.begin(),nums.end())-nums.begin());
+        vector<long long> v(32,0);
+        for(auto x: nums){
+            v[__builtin_popcount(x)]++;
+        }
+        long long count = 0;
+        // for(int i=0;i<32;i++)
+        //     cout<<v[i]<<" ";
+        for(int i=0;i<32;i++){
+            for(int j=0;j<32;j++){
+                if(i+j>=k)count += v[i]*v[j];
+                // if(v[i]*v[j]>0){
+                // cout<<v[i]*v[j]<<" "<<i<<"--"<<j<<" ";}
+            }
+        }
+        return count;
+    }
+};
