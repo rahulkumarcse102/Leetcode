@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int solve(vector<int>& arr, int d, int i, vector<int> &dp){
+        int ans = 1;
+        int n = arr.size();
+        if(dp[i]!=-1)
+            return dp[i];
+        //right
+        for(int j=i+1;j<=min(i+d,n-1)&&arr[i]>arr[j];j++){
+            ans = max(ans, 1+solve(arr,d,j,dp));
+        }
+        //left
+        for(int j=i-1;j>=max(i-d,0)&&arr[i]>arr[j];j--){
+            ans = max(ans, 1+solve(arr,d,j,dp));
+        }
+        return dp[i]=ans;
+    }
+    
+    int maxJumps(vector<int>& arr, int d) {
+        vector<int> dp(arr.size(),-1);
+        int ans = 1;
+        for(int i=0;i<arr.size();i++)
+            ans = max(ans, solve(arr,d,i,dp));
+        return ans;
+    }
+};
