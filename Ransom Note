@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool canConstruct(string r, string m) {
+        map<char,int> mp,mpr;
+        for(auto x: m)mp[x]++;
+        for(auto x: r)mpr[x]++;
+        for(auto x: r){
+            if(mp.find(x)==mp.end())
+                return false;
+            else if(mp[x]<mpr[x])
+                return false;
+        }
+        return true;
+    }
+};
