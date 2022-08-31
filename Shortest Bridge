@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void solve(vector<vector<int>>& grid, int i, int j, vector<vector<int>> &v){
+        if(i<0 || j<0 || i>=grid.size() || j>= grid[0].size() || grid[i][j]==0)
+            return;
+        v.push_back({i,j});
+        grid[i][j]=0;
+        solve(grid,i+1,j,v);
+        solve(grid,i-1,j,v);
+        solve(grid,i,j+1,v);
+        solve(grid,i,j-1,v);
+        return;
+    }
+    
+    int shortestBridge(vector<vector<int>>& grid) {
+        vector<vector<int>> x,y;
+        int count = 0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+                if(grid[i][j]==1){
+                    count++;
+                    if(count == 1)
+                        solve(grid,i,j,x);
+                    else if(count == 2)
+                        solve(grid,i,j,y);
+                }
+            }
+        }
+        int mini = INT_MAX;
+        for(int i=0;i<x.size();i++){
+            for(int j=0;j<y.size();j++){
+                int d = abs(x[i][0]-y[j][0])+abs(x[i][1]-y[j][1])-1;
+                mini = min(mini,d);
+            }
+        }
+        return mini;
+    }
+};
