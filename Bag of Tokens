@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+        int score = 0, n = tokens.size();
+        if(n==0)return score;
+        sort(begin(tokens),end(tokens));
+        int s = 0, e = n-1;
+        int ans = 0;
+        if(tokens[s]>power)return 0;
+        while(s<=e &&(power >= tokens[s] || score>0)){
+            // cout<<power<<" "<<score<<"\n";
+            while(s<=e and tokens[s]<=power){
+                power -= tokens[s++];
+                score++;
+            }
+            ans = max(ans,score);
+            if(s<=e && score>0){
+                    score--;
+                    power += tokens[e--];
+            }
+        }
+        return ans;
+    }
+};
