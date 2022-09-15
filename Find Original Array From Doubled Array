@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> findOriginalArray(vector<int>& nums) {
+        if (nums.size()%2 != 0) return {};
+        unordered_map<int, int> mp;
+        for(auto a : nums) mp[a]++;
+        vector<int> v;
+        for (auto a : mp)
+            v.push_back(a.first);
+        sort(begin(v),end(v), [](int i, int j) {return abs(i) < abs(j);});
+        vector<int> ans;
+        for (int x : v) {
+            if (mp[x] > mp[2*x]) return {};
+            for (int i = 0; i < mp[x]; ++i, mp[2*x]--)
+                ans.push_back(x);
+        }
+        return ans;
+    }
+};
